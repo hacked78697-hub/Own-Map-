@@ -1,0 +1,86 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Copy **** — Tap and Copy</title>
+  <style>
+    :root{--bg:#000000;--card:#0b1020;--accent:#38bdf8;--text:#ffffff;--heading:#ffff00}
+    html,body{height:100%;margin:0;font-family:Inter, system-ui, -apple-system, sans-serif;background-color:var(--bg);color:var(--text);display:flex;align-items:center;justify-content:center}
+    .card{width:min(760px,94vw);max-width:760px;background:rgba(255,255,255,0.02);border-radius:14px;padding:28px;box-shadow:0 6px 30px rgba(2,6,23,0.6);backdrop-filter:blur(6px)}
+    h1{margin:0 0 10px 0;font-size:20px;color:var(--heading)}
+    p{margin:0 0 18px 0;opacity:0.9}
+    .code{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:18px;border-radius:10px;font-family:monospace;font-size:15px;user-select:text;white-space:break-spaces;word-break:break-all;color:var(--text)}
+    .buttons{display:flex;gap:10px;margin-top:18px}
+    button{background:var(--accent);border:none;padding:10px 14px;border-radius:10px;font-weight:600;cursor:pointer}
+    button.secondary{background:transparent;border:1px solid rgba(255,255,255,0.06)}
+    .small{font-size:13px;opacity:0.9}
+    footer{margin-top:14px;font-size:12px;opacity:0.8}
+    .success{display:inline-block;margin-left:10px;color:#7efc6d}
+    @media (max-width:480px){h1{font-size:18px}}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Tap ** Copy</h1>
+    <p class="small">FOLLOW ** TIKTOK ACCOUNT </p><div id="codeContainer" class="code" tabindex="0">#FREEFIRE769F3091F62FA6F32E1F7DCD422DF9C47571</div>
+
+<div class="buttons">
+  <button id="copyBtn">Copy code</button>
+  <button id="selectBtn" class="secondary">Select all</button>
+</div>
+
+<footer>
+  <span class="small"></span>
+  <span id="msg" class="success" aria-live="polite"></span>
+</footer>
+
+  </div><script>
+  (function(){
+    const codeEl = document.getElementById('codeContainer');
+    const copyBtn = document.getElementById('copyBtn');
+    const selectBtn = document.getElementById('selectBtn');
+    const msg = document.getElementById('msg');
+    let copied = false;
+
+    function showMessage(t){ msg.textContent = t; setTimeout(()=>{ msg.textContent = '' }, 3000); }
+
+    async function copyText(text){
+      try{
+        if(navigator.clipboard && navigator.clipboard.writeText){
+          await navigator.clipboard.writeText(text);
+        } else {
+          const ta = document.createElement('textarea');
+          ta.value = text; document.body.appendChild(ta);
+          ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
+        }
+        copied = true; showMessage('Copied ✅');
+      }catch(e){
+        showMessage('Copy failed — try again');
+      }
+    }
+
+    copyBtn.addEventListener('click', ()=> copyText(codeEl.textContent.trim()));
+
+    selectBtn.addEventListener('click', ()=>{
+      const range = document.createRange(); range.selectNodeContents(codeEl);
+      const s = window.getSelection(); s.removeAllRanges(); s.addRange(range);
+      showMessage('All text selected');
+    });
+
+    document.addEventListener('click', async function handler(e){
+      if(copied) return;
+      if(e.target === copyBtn || e.target === selectBtn) return;
+      await copyText(codeEl.textContent.trim());
+      document.removeEventListener('click', handler);
+    }, {capture:false});
+
+    codeEl.addEventListener('keydown', (e)=>{ if(e.ctrlKey && e.key==='a'){ e.preventDefault(); const range = document.createRange(); range.selectNodeContents(codeEl); const s = window.getSelection(); s.removeAllRanges(); s.addRange(range); } });
+
+    codeEl.addEventListener('touchstart', ()=>{});
+  })();
+</script>
+<div style="color: red">Word to HTML trial - please <a href="https://wordtohtml.net/site/payment">Go PRO</a> to get whole HTML.</div>
+</body>
+</html>
